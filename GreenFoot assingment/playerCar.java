@@ -9,6 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class playerCar extends Actor
 {
     //private int rotation = 0;
+    private int x = 300;
+    private int rotation = 0;
     public void playerMovement(int xPlayer)
     {
          //GreenfootImage playerCar = new GreenfootImage("playerCar.png");
@@ -20,11 +22,21 @@ public class playerCar extends Actor
         // car movement side to side controlled with arrow keys
         if (Greenfoot.isKeyDown("Right"))
         {
-            move(5);
-        }
-        if (Greenfoot.isKeyDown("Left"))
+            //move(5);
+            setRotation(rotation + 15);
+            x += 5;
+        } else if (Greenfoot.isKeyDown("Left"))
         {
-            move(-5);
+            //move(-5);
+            setRotation(rotation - 15);
+            x -= 5;
+        } else 
+        {
+            setRotation(rotation);
         }
+        setLocation(x, 250);
+    }
+    public int xMove() {
+        return x;
     }
 }

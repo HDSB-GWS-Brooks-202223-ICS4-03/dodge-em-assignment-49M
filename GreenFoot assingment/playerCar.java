@@ -1,19 +1,30 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class playerCar here.
+ * player controlled car
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Michal Buczek
+ * 1.0
  */
 public class playerCar extends Actor
 {
-    /**
-     * Act - do whatever the playerCar wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    //private int rotation = 0;
+    public void playerMovement(int xPlayer)
+    {
+         //GreenfootImage playerCar = new GreenfootImage("playerCar.png");
+         //getWorld().getBackground().drawImage(playerCar, xPlayer, yPlayer);
+         //setImage(GreenfootImage image);
+    }
     public void act()
     {
-        // Add your action code here.
+        // car movement side to side controlled with arrow keys
+        if (Greenfoot.isKeyDown("Right"))
+        {
+            move(5);
+        }
+        if (Greenfoot.isKeyDown("Left"))
+        {
+            move(-5);
+        }
     }
 }

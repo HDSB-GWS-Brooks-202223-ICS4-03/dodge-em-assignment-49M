@@ -1,12 +1,15 @@
 #Greenfoot project file
-class.playerCar.image=car01-n.png
+class.playerCar.image=playerCar.png
 class.policeCar.image=ThePolice_png_png-transformed.png
-editor.fx.0.height=0
-editor.fx.0.width=0
-editor.fx.0.x=0
-editor.fx.0.y=0
+dependency1.from=PoliceChase
+dependency1.to=playerCar
+dependency1.type=UsesDependency
+editor.fx.0.height=728
+editor.fx.0.width=800
+editor.fx.0.x=335
+editor.fx.0.y=101
 height=919
-package.numDependencies=0
+package.numDependencies=1
 package.numTargets=3
 project.charset=UTF-8
 publish.hasSource=false

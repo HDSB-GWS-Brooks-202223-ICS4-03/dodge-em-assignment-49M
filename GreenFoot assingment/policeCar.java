@@ -1,15 +1,18 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class policeCar here.
+ * Police car
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Michal Buczek 
+ * 2.0
  */
 public class policeCar extends Actor
 {
+    private int policeX = 300;
+    private int turnAngle = 0;
     public policeCar()
     {
+        // Image set up with scaling to match player car size
         GreenfootImage ThePolice = getImage();
         int imgHeight = (int)ThePolice.getHeight()/3;
         int imgWidth = (int)ThePolice.getWidth()/3;
@@ -22,6 +25,24 @@ public class policeCar extends Actor
      */
     public void act()
     {
-        //greenfoot.GreenfootImage.scale(50, 100);
+                PoliceChase world = (PoliceChase)getWorld();
+        // car movement side to side controlled with arrow keys
+        if (Greenfoot.isKeyDown("Right"))
+        {
+            setRotation(turnAngle + 7);
+            policeX += (world.getSpeed() / 2);
+        } else if (Greenfoot.isKeyDown("Left"))
+        {
+            setRotation(turnAngle - 7);
+            policeX -= (world.getSpeed() / 2);
+        } else 
+        {
+            setRotation(turnAngle);
+        }
+        setLocation(policeX, 450);
+    }
+    public int xPosition()
+    {
+        return policeX;
     }
 }

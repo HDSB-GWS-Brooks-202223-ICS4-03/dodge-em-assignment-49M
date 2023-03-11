@@ -11,30 +11,23 @@ public class playerCar extends Actor
     //private int rotation = 0;
     private int x = 300;
     private int rotation = 0;
-    public void playerMovement(int xPlayer)
-    {
-         //GreenfootImage playerCar = new GreenfootImage("playerCar.png");
-         //getWorld().getBackground().drawImage(playerCar, xPlayer, yPlayer);
-         //setImage(GreenfootImage image);
-    }
     public void act()
     {
+        PoliceChase world = (PoliceChase)getWorld();
         // car movement side to side controlled with arrow keys
         if (Greenfoot.isKeyDown("Right"))
         {
-            //move(5);
             setRotation(rotation + 15);
-            x += 5;
+            x += (world.getSpeed() / 2);
         } else if (Greenfoot.isKeyDown("Left"))
         {
-            //move(-5);
             setRotation(rotation - 15);
-            x -= 5;
+            x -= (world.getSpeed() / 2);
         } else 
         {
             setRotation(rotation);
         }
-        setLocation(x, 250);
+        setLocation(x, 300);
     }
     public int xMove() {
         return x;

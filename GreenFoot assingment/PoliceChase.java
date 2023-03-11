@@ -10,12 +10,16 @@ public class PoliceChase extends World
 {
     //Variables:
     String gameState;
-    private int xPlayer = 300;
-    private int yPlayer = 450;
+    private int xPolice = 300;
+    private int yPolice = 450;
     private GreenfootImage bg;
     private int bgHeight = 0;
     private GreenfootImage bg2;
     private int bg2Height = -500;
+    // Moving background speed up
+    float speedOverTime = 1;
+    int timeCount = 0;
+    float speedMultiplier = 10;
     /**
      * Constructor for objects of class PoliceChase.
      * 
@@ -33,31 +37,34 @@ public class PoliceChase extends World
         getBackground().drawImage(bg, -200, 0);
         // Adds player car to the screen  
         playerCar p1 = new playerCar();
-        addObject(p1, p1.xMove(), 250);
+        addObject(p1, p1.xMove(), 300);
         // Adds police car to the screen
         policeCar police = new policeCar();
-        addObject(police, xPlayer, yPlayer);
+        addObject(police, police.xPosition(), yPolice);
 
         
     }
     public void act()
     {
-    int speedOverTime = 1;
-    int timeCount = 0;
-    int speedMultiplier = 10;
-    if (bgHeight >= 500){
-        bgHeight = -500;
-    } else if (bg2Height >= 500) {
-        bg2Height = -500;
+        //Makes the background move by using 2 of the same background
+        if (bgHeight >= 500){
+            bgHeight = -500;
+        } else if (bg2Height >= 500) {
+            bg2Height = -500;
+        }
+        getBackground().drawImage(bg, -200, bgHeight);
+        getBackground().drawImage(bg2, -200, bg2Height); 
+        bgHeight += speedOverTime;
+        bg2Height += speedOverTime;
+        timeCount += 1;
+        //Increases background movement speed (makes the car look like its accelerating
+        if (timeCount >= speedMultiplier){
+            speedOverTime += 1;
+            speedMultiplier *= 2.5;
+        }
     }
-    getBackground().drawImage(bg, -200, bgHeight);
-    getBackground().drawImage(bg2, -200, bg2Height); 
-    bgHeight += speedOverTime;
-    bg2Height += speedOverTime;
-    timeCount += 1;
-    if (timeCount >= speedMultiplier){
-        speedOverTime += 1;
-        speedMultiplier *= 2;
-    }
+    public float getSpeed() 
+    {
+        return speedOverTime;
     }
 }

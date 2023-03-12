@@ -6,17 +6,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Michal Buczek 
  * 2.0
  */
-public class policeCar extends Actor
+public class PoliceCar extends Actor
 {
-    private int policeX = 300;
-    private int turnAngle = 0;
-    public policeCar()
+    private int x = 300;
+    private int y = 450;
+    private int rotation = 0;
+    
+    public PoliceCar()
     {
         // Image set up with scaling to match player car size
-        GreenfootImage ThePolice = getImage();
-        int imgHeight = (int)ThePolice.getHeight()/3;
-        int imgWidth = (int)ThePolice.getWidth()/3;
-        ThePolice.scale(imgWidth, imgHeight);
+        GreenfootImage thePolice = getImage();
+        int imgHeight = (int)thePolice.getHeight()/3;
+        int imgWidth = (int)thePolice.getWidth()/3;
+        thePolice.scale(imgWidth, imgHeight);
         
     }
     /**
@@ -25,24 +27,31 @@ public class policeCar extends Actor
      */
     public void act()
     {
-                PoliceChase world = (PoliceChase)getWorld();
+        PoliceChase world = (PoliceChase)getWorld();
         // car movement side to side controlled with arrow keys
-        if (Greenfoot.isKeyDown("Right"))
+        PlayerCar playerCar = world.getPlayerCar();
+        int playerCarX = playerCar.getX();
+        if (x > playerCarX)
         {
-            setRotation(turnAngle + 7);
-            policeX += (world.getSpeed() / 2);
-        } else if (Greenfoot.isKeyDown("Left"))
+            x -= 1;
+            rotation = -8;
+        } else if (x < playerCarX)
         {
-            setRotation(turnAngle - 7);
-            policeX -= (world.getSpeed() / 2);
-        } else 
+            x += 1;
+            rotation = 8;
+        } else
         {
-            setRotation(turnAngle);
+            rotation = 0;
         }
-        setLocation(policeX, 450);
+        setLocation(x, y);
+        setRotation(rotation);        
     }
-    public int xPosition()
+    public int getX()
     {
-        return policeX;
+        return x;
+    }
+    public int getY() 
+    {
+        return y;    
     }
 }

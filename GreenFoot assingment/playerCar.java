@@ -6,30 +6,30 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Michal Buczek
  * 1.0
  */
-public class playerCar extends Actor
-{
-    //private int rotation = 0;
+public class PlayerCar extends Actor {
     private int x = 300;
+    private int y = 300;
     private int rotation = 0;
-    public void act()
-    {
+    
+    public void act() {
         PoliceChase world = (PoliceChase)getWorld();
         // car movement side to side controlled with arrow keys
-        if (Greenfoot.isKeyDown("Right"))
-        {
-            setRotation(rotation + 15);
+        if (Greenfoot.isKeyDown("Right")) {
+            rotation = 15;
             x += (world.getSpeed() / 2);
-        } else if (Greenfoot.isKeyDown("Left"))
-        {
-            setRotation(rotation - 15);
+        } else if (Greenfoot.isKeyDown("Left")) {
+            rotation = -15;
             x -= (world.getSpeed() / 2);
-        } else 
-        {
-            setRotation(rotation);
+        } else {
+            rotation = 0;
         }
-        setLocation(x, 300);
+        setLocation(x, y);
+        setRotation(rotation);
     }
-    public int xMove() {
+    public int getX() {
         return x;
+    }
+    public int getY() {
+        return y;
     }
 }

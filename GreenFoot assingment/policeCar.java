@@ -44,7 +44,14 @@ public class PoliceCar extends Actor
             rotation = 0;
         }
         setLocation(x, y);
-        setRotation(rotation);        
+        setRotation(rotation);
+        if (world.gameOver())
+        {
+            if (y > 375)
+            {
+                y -= 2;   
+            }
+        }
     }
     public int getX()
     {

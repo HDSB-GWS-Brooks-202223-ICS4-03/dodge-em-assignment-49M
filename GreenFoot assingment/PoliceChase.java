@@ -18,15 +18,18 @@ public class PoliceChase extends World
     private int bg2Height = -500;
     private PlayerCar playerCar;
     private PoliceCar policeCar;
-    //private RedCar redCar;
-    
     // Moving background speed up
     float speedOverTime = 1;
     int timeCount = 0;
     float speedMultiplier = 10;
     private Random random = new Random();
+    //time interval variable that spawns in a new instance
     private int spawnRedCarTime = 200;
     private int spawnBlueCarTime = 150;
+    boolean gameOver = false;
+    // out of bounds (off road)
+    private int outLeft = 120;
+    private int outRight = 480;
     
     /**
      * Constructor for objects of class PoliceChase.
@@ -49,11 +52,6 @@ public class PoliceChase extends World
         // Adds police car to the screen
         policeCar = new PoliceCar();
         addObject(policeCar, policeCar.getX(), policeCar.getY());
-        //Adds red cars moving in the same direction as the player car
-        //redCar = new RedCar(300 + random.nextInt(150), 0);
-        
-
-        
     }
     public void act()
     {
@@ -68,22 +66,34 @@ public class PoliceChase extends World
         bgHeight += speedOverTime;
         bg2Height += speedOverTime;
         timeCount += 1;
+        // If there is a collision background stops moving
+        if (playerCar.isCrashStop())
+        {
+            speedOverTime = 0;
+            gameOver = true;
+        }
         //Increases background movement speed (makes the car look like its accelerating
-        if (timeCount >= speedMultiplier){
-            speedOverTime += 1;
-            speedMultiplier *= 2.5;
-        }
-        if (timeCount == spawnRedCarTime)
+        else
         {
-            RedCar redCar = new RedCar(300 + random.nextInt(150), 0);
-            addObject(redCar, redCar.getX(), redCar.getY());
-            spawnRedCarTime += 100 + random.nextInt(200); 
-        }
-        if (timeCount == spawnBlueCarTime)
-        {
-            BlueCar blueCar = new BlueCar(150 + random.nextInt(150), 0);
-            addObject(blueCar, blueCar.getX(), blueCar.getY());
-            spawnBlueCarTime += 100 + random.nextInt(200); 
+            if (timeCount >= speedMultiplier){
+                speedOverTime += 1;
+                speedMultiplier *= 2.5;
+            }
+            // Adds new obstacle instances at a random time interval(within range) and random location on the road with respect to the cars direciton
+            if (timeCount == spawnRedCarTime)
+            {
+                RedCar redCar = new RedCar(300 + random.nextInt(150), 0);
+                addObject(redCar, redCar.getX(), redCar.getY());
+                spawnRedCarTime += 75 + random.nextInt(200); 
+            }
+            if (timeCount == spawnBlueCarTime)
+            {
+                BlueCar blueCar = new BlueCar(150 + random.nextInt(145), 0);
+                addObject(blueCar, blueCar.getX(), blueCar.getY());
+                spawnBlueCarTime += 100 + random.nextInt(200); 
+            }
+            //timer
+            showText(timeCount/60+"s", 50, 20);
         }
     }
     public float getSpeed() 
@@ -92,5 +102,17 @@ public class PoliceChase extends World
     }
     public PlayerCar getPlayerCar() {
         return playerCar;
+    }
+    public boolean gameOver()
+    {
+        return gameOver;
+    }
+    public int getOutLeft()
+    {
+        return outLeft;
+    }
+    public int getOutRight() 
+    {
+        return outRight;
     }
 }

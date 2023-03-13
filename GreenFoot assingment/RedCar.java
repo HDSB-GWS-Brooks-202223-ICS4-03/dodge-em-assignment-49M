@@ -15,24 +15,24 @@ public class RedCar extends Actor
         this.x = x;
         this.y = y;
     }
-    /**
-     * Act - do whatever the RedCar wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     public void act()
     {
+        // Makes car move down but facing same direction as player car to make them seem slower
         PoliceChase world = (PoliceChase)getWorld();
         y += world.getSpeed() / 2;
         setLocation(x, y);
+        // makes sure they don't collide with police car by dissapearing
         if (y >= 370)
         {
             world.removeObject(this);
         }
     }
+    //gets x-position of car
     public int getX()
     {
         return x;
     }
+    //gets y-position of car
     public int getY()
     {
         return y;

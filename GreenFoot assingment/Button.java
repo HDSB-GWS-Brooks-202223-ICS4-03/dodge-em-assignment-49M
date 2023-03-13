@@ -19,21 +19,19 @@ public class Button extends Actor
         if (stateIn) buttonOn();
         else buttonOff();
     }
-    public void act()
-    {
-        // Add your action code here.
-    }
-    
+    // button not clicked it is green
     public void buttonOff() {
         GreenfootImage buttonImage = new GreenfootImage(buttonText, 35, Color.BLACK, Color.GREEN);
         setImage(buttonImage);
         buttonState = false;
     }
+    // when button is clicked it turns pink and makes buttonState true
     public void buttonOn() {
         GreenfootImage buttonImage = new GreenfootImage(buttonText, 35, Color.BLACK, Color.PINK);
         setImage(buttonImage);
         buttonState = true;
     }
+    // toggles the button for actions
     public void buttonToggle() {
         if (buttonState) {
             buttonOff();        

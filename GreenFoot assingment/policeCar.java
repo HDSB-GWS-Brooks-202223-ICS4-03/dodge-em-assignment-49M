@@ -30,6 +30,7 @@ public class PoliceCar extends Actor
         PoliceChase world = (PoliceChase)getWorld();
         // car movement side to side controlled with arrow keys
         PlayerCar playerCar = world.getPlayerCar();
+        // Police Car follows the x-movement of the player car
         int playerCarX = playerCar.getX();
         if (x > playerCarX)
         {
@@ -45,6 +46,7 @@ public class PoliceCar extends Actor
         }
         setLocation(x, y);
         setRotation(rotation);
+        // Once car crashes, police car moves up to the height of the car (caught)
         if (world.gameOver())
         {
             if (y > 375)
@@ -53,10 +55,12 @@ public class PoliceCar extends Actor
             }
         }
     }
+    // gets the police cars x-position
     public int getX()
     {
         return x;
     }
+    // gets the police cars y-position
     public int getY() 
     {
         return y;    

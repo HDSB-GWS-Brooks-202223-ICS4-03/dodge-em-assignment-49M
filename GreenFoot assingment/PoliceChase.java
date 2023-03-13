@@ -2,15 +2,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Random;
 import java.util.List;
 
-/**
- * Write a description of class PoliceChase here.
- * 
- * Michal Buczek 
- *  V 0.3 Monday, March 8, 2023 
- */
 public class PoliceChase extends World
 {
     //Variables:
+    // Start Screen Background
+    private GreenfootImage startBG = new GreenfootImage("startBG.tiff");
     // Background for world
     private GreenfootImage bg = new GreenfootImage("roadBackground.tiff");
     private int bgHeight = 0;
@@ -24,8 +20,8 @@ public class PoliceChase extends World
     private float speedMultiplier = 10;
     private Random random = new Random();
     //time interval variable that spawns in a new instance
-    private int spawnRedCarTime = 200;
-    private int spawnBlueCarTime = 150;
+    private int spawnRedCarTime = 60;
+    private int spawnBlueCarTime = 60;
     private boolean gameOver = false;
     // out of bounds (off road)
     private int outLeft = 120;
@@ -36,6 +32,7 @@ public class PoliceChase extends World
     private int crashTimer = 0;
     // Highscore 
     private int highScore = 0;
+    private boolean newHighScore;
     
     /**
      * Constructor for objects of class PoliceChase.
@@ -47,12 +44,16 @@ public class PoliceChase extends World
         super(600, 500, 1);  
         bg.scale(getWidth() + 400, getHeight());
         bg2.scale(getWidth() + 400, getHeight());
+        startBG.scale(getWidth(), getHeight());
     }
     public void act()
     {
         switch (gameState) {
             case "Initialize start":
-                addObject(new Button(), 300, 250);
+                // Background, Title and Start Button
+                addObject(new Button(), 300, 300);
+                addObject(new Text("POLICE CHASE", 60, Color.WHITE, Color.BLACK), 300, 200);
+                getBackground().drawImage(startBG, 0, 0);
                 gameState = "start";
                 break;
             case "start":
@@ -74,6 +75,7 @@ public class PoliceChase extends World
                 }
                 break;
             case "Initialize game":
+                //variables for game
                 removeObjects(getObjects(null));
                 bgHeight = 0;  
                 bg2Height = -500;
@@ -82,7 +84,8 @@ public class PoliceChase extends World
                 speedMultiplier = 10;
                 gameOver = false;
                 crashTimer = 0;                 
-
+                spawnRedCarTime = 60;
+                spawnBlueCarTime = 60;
                 // draws the background
                 getBackground().drawImage(bg, -200, 0);
                 // Adds player car to the screen  
@@ -92,6 +95,7 @@ public class PoliceChase extends World
                 policeCar = new PoliceCar();
                 addObject(policeCar, policeCar.getX(), policeCar.getY());
                 gameState = "game";
+                newHighScore = false;
                 addObject(new Text("High Score: "+highScore+"s", 15, Color.WHITE, Color.BLACK), 545, 20);
                 break;
             case "game": //Makes the background move by using 2 of the same background
@@ -101,17 +105,21 @@ public class PoliceChase extends World
                     speedOverTime = 0;
                     gameOver = true;
                     crashTimer += 1;
+                    // highscore timer checks to see if score is the new highscore
                     if (timeCount/60 > highScore){
+                        newHighScore = true;
                         highScore = timeCount/60;
                     }
+                    // after crash 2s down time until it initializes game over
                     if (crashTimer / 60 >= 2)
                     {
                         gameState = "Initialize game over";
                     }
                 }
-                //Increases background movement speed (makes the car look like its accelerating
+                
                 else
                 {
+                    //Increases background movement speed (makes the car look like its accelerating
                     if (bgHeight >= 500){
                         bgHeight = -500;
                     } else if (bg2Height >= 500) {
@@ -125,20 +133,20 @@ public class PoliceChase extends World
                 
                     if (timeCount >= speedMultiplier){
                         speedOverTime += 1;
-                        speedMultiplier *= 2.5;
+                        speedMultiplier *= 2.0;
                     }
                     // Adds new obstacle instances at a random time interval(within range) and random location on the road with respect to the cars direciton
                     if (timeCount == spawnRedCarTime)
                     {
-                        RedCar redCar = new RedCar(300 + random.nextInt(150), 0);
+                        RedCar redCar = new RedCar(310 + random.nextInt(150), 0);
                         addObject(redCar, redCar.getX(), redCar.getY());
-                        spawnRedCarTime += 75 + random.nextInt(200); 
+                        spawnRedCarTime += 60 + random.nextInt(120); 
                     }
                     if (timeCount == spawnBlueCarTime)
                     {
-                        BlueCar blueCar = new BlueCar(150 + random.nextInt(145), 0);
+                        BlueCar blueCar = new BlueCar(150 + random.nextInt(140), 0);
                         addObject(blueCar, blueCar.getX(), blueCar.getY());
-                        spawnBlueCarTime += 100 + random.nextInt(200); 
+                        spawnBlueCarTime += 60 + random.nextInt(120); 
                     }
                     //timer
                     showText(timeCount/60+"s", 50, 20);
@@ -149,9 +157,14 @@ public class PoliceChase extends World
                 addObject(new Text("Game Over", 50, Color.WHITE, Color.BLACK), 300, 200);
                 addObject(new Button(false, "Play Again"), 300, 300);
                 addObject(new Text("High Score: "+highScore+"s", 20, Color.BLACK, Color.YELLOW), 300, 375);
+                //addObject(new Text("New HighScore!", 15, Color.GREEN, Color.BLACK), 300, 425);
                 gameState = "Game Over";
                 break;
             case "Game Over":
+                // checks for new high score if so lets player know
+                if (newHighScore){
+                    addObject(new Text("New HighScore!", 15, Color.GREEN, Color.BLACK), 300, 425);
+                }
                 mouse = Greenfoot.getMouseInfo();
                 
                 //Play Again button click detection
@@ -171,21 +184,26 @@ public class PoliceChase extends World
                 break;
         }
     }
+    // gets the speed of the background/cars
     public float getSpeed() 
     {
         return speedOverTime;
     }
+    // gets the information about the player controlled car (x-variable used for police tracking)
     public PlayerCar getPlayerCar() {
         return playerCar;
     }
+    // returns whether the game is over, after a crash
     public boolean gameOver()
     {
         return gameOver;
     }
+    // gets position of car and whether it is out of bounds on the left side
     public int getOutLeft()
     {
         return outLeft;
     }
+    // gets position of car and whether it is out of bounds on the right side
     public int getOutRight() 
     {
         return outRight;

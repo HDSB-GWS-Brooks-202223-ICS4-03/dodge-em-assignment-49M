@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class BlueCar extends Actor
 {
-  private int x;
+    private int x;
     private int y;
     public BlueCar(int x, int y)
     {
@@ -21,19 +21,23 @@ public class BlueCar extends Actor
      */
     public void act()
     {
+        // changes the y-position of the car to oppose the movement of the player car
         PoliceChase world = (PoliceChase)getWorld();
         y += world.getSpeed();
         setLocation(x, y);
         setRotation(180);
+        // Makes sure that it doesn't collide with police car by dissapearing
         if (y >= 370)
         {
             world.removeObject(this);
         }
     }
+    // gets the x-position of the car
     public int getX()
     {
         return x;
     }
+    // gets the y-position of the car
     public int getY()
     {
         return y;

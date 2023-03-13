@@ -29,7 +29,6 @@ public class PlayerCar extends Actor {
                 rotation = 0;
             }
             //Collision detection between objects
-
             if (getOneIntersectingObject(RedCar.class) != null || x >= world.getOutRight()) {
                 crashStop = true;
             } else if (getOneIntersectingObject(BlueCar.class) != null  || x <= world.getOutLeft()) {
@@ -40,6 +39,7 @@ public class PlayerCar extends Actor {
         }
         setLocation(x, y);
         setRotation(rotation);
+        //Makes the car do a 360 after collision
         if (crashStop)
         {
             if (crashTurn != 0)
@@ -50,12 +50,15 @@ public class PlayerCar extends Actor {
             }
         }
     }
+    // gets the x-position of the car
     public int getX() {
         return x;
     }
+    // gets the y-position of the car
     public int getY() {
         return y;
     }
+    // returns whether the car has crashed or not
     public boolean isCrashStop() {
         return crashStop;
     }

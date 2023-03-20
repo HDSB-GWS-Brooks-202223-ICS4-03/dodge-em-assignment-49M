@@ -2,6 +2,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Random;
 import java.util.List;
 
+/**
+ * 
+ * PoliceChase world initialization, where all game actions take place
+ * 
+ * @author Michal Buczek
+ * 
+ */
 public class PoliceChase extends World
 {
     //Variables:
@@ -54,6 +61,7 @@ public class PoliceChase extends World
                 addObject(new Button(), 300, 300);
                 addObject(new Text("POLICE CHASE", 60, Color.WHITE, Color.BLACK), 300, 200);
                 getBackground().drawImage(startBG, 0, 0);
+                addObject(new Text("Instructions: Use left and right arrow keys to avoid cars!", 20, Color.WHITE, Color.BLACK), 300, 400);
                 gameState = "start";
                 break;
             case "start":

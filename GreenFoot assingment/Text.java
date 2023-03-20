@@ -12,8 +12,4 @@ public class Text extends Actor
         GreenfootImage buttonImage = new GreenfootImage(text, size, textColor, background);
         setImage(buttonImage);         
     }
-    public void act()
-    {
-        // Add your action code here.
-    }
 }

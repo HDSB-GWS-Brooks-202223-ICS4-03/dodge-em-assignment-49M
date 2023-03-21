@@ -1,15 +1,20 @@
 # ICS4U Greenfoot Program - Rubric
 
-## Name: 
+## Name: Michal Buczek
 [TOC]
 
 ## Mini Reflection
 
 Mini-Game Genre:
 
-I think my program is a level XXXX because ....(insert justification here)
-
+I believe my program is a level 4+ because I completed all the level 3 and 4 requirements and added extra features to make the game feel clean. These extra features ultimately make the game more enjoyable and realistic.  
 The extra features I included in my program are: 
+- Moving background which speeds up progresively (Did this using two of the same backgrounds which are stacked and moving down at a certain speed and once the bottom one reaches the bottom of the screen it is moved back on top of the other one)
+- Car obstacles speed, and player side to side movement speed changes proportionaly to the background speed. (Makes the game look realistic and progress in difficulty)
+- Car position rotates when player turns (Realistic affect)
+- When car crashes into another car or drives off the road, car spins and game stops (The spin direction is different depending on whether player hits a blue car, red car, or one of the offroad sides). Made it do a 360 after the collision using a boolean to make sure it spins even if the car is no longer touching the collision object when it spins.
+- Made police car tracking player movements look slightly delayed. Rather than having the police mirror exactly the movement of the car at the same time, I seperated the police car x-movement to follow the x-position of the player car at a certain speed (Adds a delayed more real reaction time without the rigorous turning of the player)
+- "New highscore" text on end screen when a new survival time record is reached
 
 
 ## The Program [KA]

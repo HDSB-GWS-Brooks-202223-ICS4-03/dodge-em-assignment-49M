@@ -74,7 +74,6 @@ public class PoliceChase extends World
                         Button currentButton = (Button)currentActor;
                         int mouseButtonPressed = mouse.getButton();
                         int mouseClickCount = mouse.getClickCount();
-                        System.out.println(mouseButtonPressed+" "+mouseClickCount);
                         if (mouseClickCount == 1) {
                             currentButton.buttonToggle();
                             gameState = "Initialize game";
@@ -182,7 +181,6 @@ public class PoliceChase extends World
                         Button currentButton = (Button)currentActor;
                         int mouseButtonPressed = mouse.getButton();
                         int mouseClickCount = mouse.getClickCount();
-                        System.out.println(mouseButtonPressed+" "+mouseClickCount);
                         if (mouseClickCount == 1) {
                             currentButton.buttonToggle();
                             gameState = "Initialize game";

@@ -1,10 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * player controlled car
+ * This class represents the player car.
+ * It contains coordinates, rotation and turn information.
+ * It controls the car movement and detects collisions.
  * 
- * Michal Buczek
- * 1.0
+ * @author Michal Buczek
+ * 
  */
 public class PlayerCar extends Actor {
     private int x = 300;
@@ -14,6 +16,11 @@ public class PlayerCar extends Actor {
     private int crashTurn = 360;
     private int crashRotation = -8;
     
+    /**
+     * Controls the car movement and detects collision.
+     * Sets coordinates and rotation of car based on pressed arrow keys and game speed.
+     * Makes the car do a 360 after collision and change crashStop to true.
+     */
     public void act() {
         PoliceChase world = (PoliceChase)getWorld();
         // car movement side to side controlled with arrow keys
@@ -50,15 +57,24 @@ public class PlayerCar extends Actor {
             }
         }
     }
-    // gets the x-position of the car
+    /**
+     * Gets the x-position of the car
+     * @return x-position of the car
+     */
     public int getX() {
         return x;
     }
-    // gets the y-position of the car
+    /** 
+     * Gets the y-position of the car
+     * @return y-position of the car
+     */
     public int getY() {
         return y;
     }
-    // returns whether the car has crashed or not
+    /**
+     * Returns whether the car has crashed or not
+     * @return true if car has collision and false if not
+     */ 
     public boolean isCrashStop() {
         return crashStop;
     }

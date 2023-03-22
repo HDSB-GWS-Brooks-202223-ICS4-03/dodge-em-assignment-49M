@@ -1,10 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Police car
+ * This class represents the police car.
+ * It contains coordinates and rotation information.
+ * It follows the movement of the player car and controls rotation.
  * 
- * Michal Buczek 
- * 2.0
+ * @author Michal Buczek 
+ * 
  */
 public class PoliceCar extends Actor
 {
@@ -12,6 +14,10 @@ public class PoliceCar extends Actor
     private int y = 450;
     private int rotation = 0;
     
+    /**
+     * Constructs police car object.
+     * Sets the image of the car and scales it to the relative size of the other cars.
+     */
     public PoliceCar()
     {
         // Image set up with scaling to match player car size
@@ -22,8 +28,9 @@ public class PoliceCar extends Actor
         
     }
     /**
-     * Act - do whatever the policeCar wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Controls the movement of the police car.
+     * It follows the x-position of the player car and rotates towards it.
+     * Once car crashes, police car moves up to the height of the car (caught)
      */
     public void act()
     {
@@ -55,12 +62,18 @@ public class PoliceCar extends Actor
             }
         }
     }
-    // gets the police cars x-position
+    /**
+     * Gets the x-position of the police car
+     * @return x-position of the police car
+     */
     public int getX()
     {
         return x;
     }
-    // gets the police cars y-position
+    /** 
+     * Gets the y-position of the police car
+     * @return y-position of the police car
+     */
     public int getY() 
     {
         return y;    

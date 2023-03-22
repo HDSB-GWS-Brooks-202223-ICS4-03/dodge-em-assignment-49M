@@ -4,7 +4,11 @@ import java.util.List;
 
 /**
  * 
- * PoliceChase world initialization, where all game actions take place
+ * Initialization of world, class representing the PoliceChase world.
+ * Creates game with start screen, play screen and end screen.
+ * In the game, the player must avoid other cars and stay on the road while escaping the police car.
+ * If the player collides with a car or goes off track, game is over.
+ * Highscore is tracked.
  * 
  * @author Michal Buczek
  * 
@@ -42,8 +46,8 @@ public class PoliceChase extends World
     private boolean newHighScore;
     
     /**
-     * Constructor for objects of class PoliceChase.
-     * 
+     * Constructs PoliceChase screen with two scaled backgrounds
+     * which move. 
      */
     public PoliceChase()
     {    
@@ -53,6 +57,22 @@ public class PoliceChase extends World
         bg2.scale(getWidth() + 400, getHeight());
         startBG.scale(getWidth(), getHeight());
     }
+    /**
+     * This method is called every time the game runs (repeatedly).
+     * Checks the gameState and performs the actions for whichever gameState
+     * it is.
+     * 
+     * - In "Initialize start" state: background, title, instructions and start button are set.
+     * - In "start" state: Start button click is detected and changes game state. 
+     * - In "Initialize game" state: Existing objects are removed and variables for game are initialized
+     * (background, player car, police car, etc) changes game state to game.
+     * - In "game" state: Background moves, game speed increases, new car instances (red and blue) are
+     * added at random time and position intervals, timer and highscore displayed, checks for collisions
+     * transitions to end game state.
+     * - In "Initialize game over" state: Removes existing objects, displays game over text and 
+     * replay button 
+     * - In "Game Over" state: checks if play again button is clicked and if so, resets game.
+     */
     public void act()
     {
         switch (gameState) {
@@ -164,7 +184,6 @@ public class PoliceChase extends World
                 addObject(new Text("Game Over", 50, Color.WHITE, Color.BLACK), 300, 200);
                 addObject(new Button(false, "Play Again"), 300, 300);
                 addObject(new Text("High Score: "+highScore+"s", 20, Color.BLACK, Color.YELLOW), 300, 375);
-                //addObject(new Text("New HighScore!", 15, Color.GREEN, Color.BLACK), 300, 425);
                 gameState = "Game Over";
                 break;
             case "Game Over":
@@ -190,26 +209,41 @@ public class PoliceChase extends World
                 break;
         }
     }
-    // gets the speed of the background/cars
+    /**
+     * Gets the speed of the background/cars
+     * @return the speed
+     */
     public float getSpeed() 
     {
         return speedOverTime;
     }
-    // gets the information about the player controlled car (x-variable used for police tracking)
+    /** 
+     * Gets the player car that contains information about the x-variable used for police tracking
+     * @return player car object
+     */
     public PlayerCar getPlayerCar() {
         return playerCar;
     }
-    // returns whether the game is over, after a crash
+    /** 
+     * States whether the game is over, after a crash
+     * @return true when player car collides with other cars or off road and false otherwise
+     */
     public boolean gameOver()
     {
         return gameOver;
     }
-    // gets position of car and whether it is out of bounds on the left side
+    /**
+     * Gets the left side boundary of the road
+     * @return x location of left road boundary
+     */
     public int getOutLeft()
     {
         return outLeft;
     }
-    // gets position of car and whether it is out of bounds on the right side
+    /**
+     * Gets the right side boundary of the road
+     * @return x location of right road boundary
+     */
     public int getOutRight() 
     {
         return outRight;
